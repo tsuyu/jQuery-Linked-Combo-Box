@@ -65,7 +65,7 @@ if (isset($no)) {
         $rs[] = array($param[$no][1] => '', $param[$no][2] => "Select");
     } else {
          while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-            $rs[] = array_map('utf8_encode', $row);;
+            $rs[] = array_map('utf8_encode', $row);
         }
     }
     
