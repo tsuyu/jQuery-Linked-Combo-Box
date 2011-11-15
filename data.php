@@ -44,21 +44,25 @@ db();
 $param = array(array("country", "country_id", "country_name"),
     array("state", "state_id", "state_name"),
     array("city", "city_id", "city_name"));
+    
+    $no = $_POST['no'];
+    $id = $_POST['id'];
+    $field = $_POST['field'];
 
-if (isset($_POST['no'])) {
+if (isset($no)) {
     
     header('Content-type: application/json');
-                
-    $sql = "SELECT `" . $param[$_POST['no']][1] . "`,`" . $param[$_POST['no']][2] . "` FROM `" . $param[$_POST['no']][0] . "`";
+        
+    $sql = "SELECT `" . $param[$no][1] . "`,`" . $param[$no][2] . "` FROM `" . $param[$no][0] . "`";
 
-    if(!empty($_POST['id']) && !empty($_POST['field'])){
-        $sql .= " WHERE `" . $param[$_POST['field']][1] . "` = ".$_POST['id']."";
+    if(!empty($id) && !empty($field)){
+        $sql .= " WHERE `" . $param[$field][1] . "` = ".$id."";
     }
     
     $result = mysql_query($sql);
 
     if (mysql_num_rows($result) == 0) {
-        $rs[] = array($param[$_POST['no']][1] => '', $param[$_POST['no']][2] => "Select");
+        $rs[] = array($param[$no][1] => '', $param[$no][2] => "Select");
     } else {
          while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
             $rs[] = array_map('utf8_encode', $row);;
